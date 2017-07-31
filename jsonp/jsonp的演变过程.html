@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>jsonp的演变</title>
+</head>
+<body>
+
+</body>
+<script>
+    /*
+        1. 问题: 跨域标签，script， image， video...
+        image, script等标签都添加src属性
+        结论：凡是有src属性的标签都能跨域
+     */
+    var script = document.createElement('script');
+    script.src = './test.js?callback=mycallback'; // 引入test文件
+    document.body.appendChild(script);
+    function test(name){
+        console.log(name)
+    }
+
+    /*
+        步骤：
+        1. 在客户端创建动态的script标签
+        2.设置src属性，执行src地址src="./test.js?callback=mycallback"
+        callback:这个名字是客户端和服务器的约定，服务器根据callback的参数将mycallback
+        提取出来，然后创建一个函数：mycallback， 最后调用函数mycallback
+        3. 当mycallback函数在服务器端调用的时候，其实是调用客户端浏览器的函数，同时把参数传递过来
+
+     */
+</script>
+</html>

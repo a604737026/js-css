@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+  <meta charset="UTF-8">
+  <title>评论</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+    ul {
+      list-style:none;
+    }
+    .box {
+      width: 600px;
+      margin: 100px auto;
+      border: 1px solid #000;
+      padding: 20px;
+    }
+    textarea {
+      width: 450px;
+      height: 160px;
+      outline:none; /*去掉环绕线*/
+      resize: none; /*禁用拖动*/
+    }
+    ul {
+      width: 450px;
+      padding-left: 80px;
+    }
+    ul li {
+      /*line-height: 25px;*/
+      height: 25px;
+      width: 450px;
+      /*border: 1px solid #000;*/
+      border-bottom: 1px dashed #cccccc;
+    }
+    input {
+      float: right;
+    }
+  </style>
+</head>
+<body>
+<div class="box" id="weibo">
+  <span>评论</span>
+  <textarea name="" id="txt" cols="30" rows="10"></textarea>
+  <button id="btn">发表</button>
+  <ul id="ul">
+    <!--<li>这是第一条用户输入的内容 <input type="button" value="删除"/></li>-->
+  </ul>
+</div>
+
+</body>
+</html>
+<script src="common.js"></script>
+<script>
+  // 1. 获得要操作的对象
+  var box = document.getElementById("weibo");
+  var btn = $$("btn");
+  var ul = $$("ul");
+  var txt = $$("txt");
+  // 2. 给事件源注册事件
+  btn.onclick = function (){
+    var val = txt.value;  // 得到用户输入的内容
+    //5. 判断用户输入是否为空
+    if(!val){ //如果val内容不为空的话，转换为对应的boolean类型为true,如果用户没有输入内容，val为空字符串的话，转换为对应的boolean类型为false
+      alert("输入的内容不能为空，请重新输入");
+      return;
+    }
+
+    // 3. 创建 li标签
+    var li = document.createElement("li");//创建li标签
+    // 4. 创建删除按钮标签
+    var input = document.createElement("input"); //创建一个删除按钮的input标签
+    input.type = "button"; // 设置input标签的属性
+    input.value = "删除";
+    setText(li,val);  // 设置li标签的内容
+    //6. 判断是追加节点还是插入节点
+    var lis = ul.children;//获取ul下面的所有的子标签节点
+    if(lis.length==0){
+      ul.appendChild(li)
+    }else {
+      ul.insertBefore(li,lis[0]);
+    }
+    li.appendChild(input);//将删除按钮追加到li标签里面
+//    ul.appendChild(li);
+
+    // 7. 给删除按钮注册事件
+    input.onclick = function (){
+           ul.removeChild(this.parentNode);
+    }
+  }
+</script>

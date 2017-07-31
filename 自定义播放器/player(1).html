@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        body {
+            background-color: black;
+        }
+        
+        .player {
+            width: 600px;
+            height: 420px;
+            margin: 100px auto;
+            background-color: black;
+            border: 1px solid white;
+        }
+        
+        video {
+            width: 600px;
+            height: 380px;
+        }
+        
+        .control {
+            height: 40px;
+            background-color: hotpink;
+            /* 开启弹性布局 */
+            display: flex;
+            justify-content: space-between;
+            /* 上下居中 */
+            align-items: center;
+        }
+        
+        .control a {
+            margin: 0 5px;
+        }
+        /* 设置 进度栏 */
+        
+        .progress {
+            height: 20px;
+            flex: 1;
+            background-color: white;
+            cursor: pointer;
+        }
+        
+        .step {
+            height: 100%;
+            width: 50%;
+            background-color: gray;
+        }
+    </style>
+</head>
+
+<body>
+    <!--播放视频的功能还是需要 video标签实现 -->
+    <!-- 自定义 控制栏 -->
+    <div class="player">
+        <video src="movie/bglb.mp4"></video>
+        <div class="control">
+            <a class='play' href="javascript:void(0)">播放</a>
+            <a class='pause' href="javascript:void(0)">暂停</a>
+            <div class='progress'>
+                <div class="step"></div>
+            </div>
+            <a class='fullScreen' href="javascript:void(0)">全屏</a>
+        </div>
+    </div>
+</body>
+
+</html>
+<script>
+    //  首先 获取 video标签 方便后续的代码使用 
+    var video = document.querySelector('video');
+
+    // 为播放 按钮 绑定点击事件
+    document.querySelector('.play').onclick = function () {
+        // 让 video标签 放视频
+        video.play();
+    }
+    // 为暂停 按钮 绑定点击事件
+    document.querySelector('.pause').onclick = function () {
+        // 让 video标签 放视频
+        video.pause();
+    }
+
+    // 全屏 
+    document.querySelector('.fullScreen').onclick = function () {
+        // 让 video标签 放视频
+        // 要让谁全屏 video
+        video.webkitRequestFullScreen();
+        // 目前的开发中 如果用到了 video标签 一般播放的是广告 默认的控制器样式的外观 是能够被接受的 
+    }
+
+    // 视频 在播放的时候    修改 进度条的 进度 
+    // play事件只在播放的时候 触发了一次
+    video.onplay = function(){
+        console.log('我播放了');
+    }
+    video.ontimeupdate = function(){
+        // console.log('播放中');
+        // 查看 当前播放的视频 所占的 比例  
+        // 需要的值 是 0-100%
+        // 时间 转化为 百分比  当前时间 / 总时间 *100 +'%';
+        // dom.style.width ='50%
+        // console.log(video.currentTime+"||"+video.duration);
+
+        //  计算百分比 
+        var percent = video.currentTime/video.duration *100 +"%";
+        console.log(percent);
+
+        // 将 获取的 百分比 设置给  stepdiv
+        document.querySelector('.step').style.width = percent;
+    }
+
+    //  点击 进度栏的时候     调整 视频的 一个 播放进度 
+    document.querySelector('.progress').onclick = function(event){
+        // 点的时候 获取一个 百分比 0.1;
+        // offsetX 鼠标点击位置 相对于 当前元素 左上角的 一个坐标值
+        // 除以 总宽度
+        // console.log(event.offsetX);
+        // console.log(this.offsetWidth);
+        var percent = event.offsetX / this.offsetWidth;
+        console.log(percent);
+         // 转化成 对应的 视频的 时间  百分比 * 总时间
+         var currentTime = percent*video.duration;
+         console.log(currentTime);
+        // video.currentTime
+        video.currentTime = currentTime;
+    }
+</script>

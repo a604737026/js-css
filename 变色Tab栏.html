@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>tab</title>
+  <style>
+    *{
+      padding: 0;
+      margin: 0;
+    }
+    button{
+      border-style:none;
+    }
+    #tabbox{
+      width: 300px;
+      height: 200px;
+      border: 1px solid gray;
+    }
+    .red{
+      width: 100%;
+      height: 100%;
+      background-color: red;
+      display: none;
+    }
+    .blue{
+      width: 100%;
+      height: 100%;
+      background-color: blue;
+      display: none;
+    }
+    .yellow{
+      width: 100%;
+      height: 100%;
+      background-color: yellow;
+      display: none;
+    }
+    button{
+      float: left;
+      display: inline-block;
+      width: 33.333333%;
+    }
+    .ccc{
+      background-color: #ccc;
+    }
+  </style>
+</head>
+<body>
+  <div id="tabbox">
+    <button class="ccc">红色</button>
+    <button>蓝色</button>
+    <button>黄色</button>
+    <div class="red" style="display:block" >颜色1</div>
+    <div class="blue">颜色2</div>
+    <div class="yellow">颜色3</div>
+  </div>
+</body>
+</html>
+<script>
+ var box = document.getElementById("tabbox");
+  var btns = box.getElementsByTagName("button");
+  var divs = box.getElementsByTagName("div");
+
+  for(var i=0;i<btns.length;i++){
+    btns[i].index = i;
+
+    btns[i].onmouseover = function(){
+      for(var k = 0;k < btns.length;k++){
+        btns[k].className = "";
+      }
+      this.className = "ccc";
+      for(var kk=0;kk<divs.length;kk++){
+        divs[kk].style.display = "none";
+      }
+      var aa = this.index;
+      divs[aa].style.display = "block";
+    }
+  }
+
+</script>
+
+ <!-- <!DOCTYPE html>
+<html>
+<head lang="en">
+  <meta charset="UTF-8">
+  <title>tab栏切换</title>
+  <style>
+    .Box{
+      width: 240px;
+      border: 1px solid #000;
+      margin:100px auto;
+      padding:20px;
+    }
+    .con{ 
+      width: 100%;
+      height: 200px;
+      background-color: #cccccc;
+      border: 1px solid #000;
+      margin-top:10px;
+      display:none;
+    }
+    .current{
+      background-color: pink;
+    } 
+  </style>
+</head>
+<body>
+<div class="Box" id="box">
+  <button class="current" >按钮1</button>
+  <button >按钮2</button>
+  <button>按钮3</button>
+  <button>按钮4</button>
+  <div class="con" style="display:block">内容1</div>
+  <div class="con">内容2</div>
+  <div class="con">内容3</div>
+  <div class="con">内容4</div>
+</div>
+
+</body>
+</html>
+<script>
+  // 1. 获得要操作的对象
+  var box = document.getElementById("box");
+  var btns = box.getElementsByTagName("button");
+  var divs = box.getElementsByTagName("div");
+
+  // 2. 给事件源注册事件
+  for(var i=0;i<btns.length;i++){
+    btns[i].index = i; //给每一个按钮添加一个属性来存储一个编号
+    btns[i].onclick = function (){
+        // 事件中的当前对象用this来表示
+      for(var j = 0; j < btns.length; j++) {  //清除掉所有按钮的背景颜色
+           btns[j].className = "";//将所有的按钮的背景颜色的类清除掉
+        divs[j].style.display = "none";
+      }
+      this.className = "current"; //让当前单击的按钮的背景颜色变成粉红色
+
+      // 单击哪个按钮，就要获取哪个按钮的索引值
+         var aa=   this.index;
+      // 让和按钮的索引同步的那个div显示出来
+//      for(var k=0;k<divs.length;k++){ //设置所有的div的display为none
+//        divs[k].style.display = "none";
+//      }
+      divs[aa].style.display = "block"; //和点击的当前按钮的索引一致的那个Div显示出来
+    }
+  }
+</script> -->

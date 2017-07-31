@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>自己封装jsonp</title>
+</head>
+<body>
+
+</body>
+<script>
+    // http://api.douban.com/v2/movie/in_theaters?start=0&count=20&callback=mycallback"
+    var myJsonp = function(url, params, callback){
+        var querystring = '?';
+        for(var key in params){
+            querystring += key + '=' + params[key] + '&';
+        }
+        url += querystring;
+        var mycallback = 'callback_' + Math.random().toString().substr(2);
+        window[mycallback] = callback;
+       // window.mycallback = callback;// 将callback挂在到window上给服务调用
+        //url += 'callback=mycallback' // 拼接callback,给服务传递参数，mycallback， 服务器会创建mycallback函数，再执行它
+        url += 'callback=' + mycallback;
+        //动态创建script标签
+
+        var script = document.createElement('script');
+        script.src = url;
+        document.body.appendChild(script);
+    }
+
+    var url = 'http://api.douban.com/v2/movie/coming_soon';
+    myJsonp(url, {start:0, count:20}, function(data){
+        console.log('data:',data);
+        console.log('1111')
+    })
+    myJsonp(url, {start:0, count:20}, function(data){
+        console.log('data:',data);
+        console.log('2222')
+    })
+    myJsonp(url, {start:0, count:20}, function(data){
+        console.log('data:',data);
+        console.log('333')
+    })
+</script>
+</html>

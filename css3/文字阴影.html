@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <style>
+    body{
+      background-color: black;
+    }
+    p{
+      color:orange;
+      font-weight: 900;
+      font-size:300px;
+      text-align: center;
+
+ 
+
+      /* 过渡属性 让属性的变化 能够看到过程 */
+      transition: all 1s;
+    }
+
+    /* hover 出现影子 并且 拥有 过渡效果 */
+    p:hover{
+      /* 设置 多个文字阴影 影子于影子之间 使用逗号分隔即可 */
+      /*text-shadow: 0px -10px 30px white;*/
+      text-shadow: 0px -10px 30px white,0px -20px 30px greenyellow,0px -30px 30px red;
+    }
+  </style>
+</head>
+<body>
+  <p>平凡之路</p>
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <input class='input-name' type="text"  >
+    <input type="button" value='保存输入的名字'>
+    <input class='delete' type="button" value='删除保存的信息'>
+</body>
+</html>
+<script>
+    // 点击 按钮 将     用户输入的 内容      存起来
+    document.querySelector('input[type=button]').onclick = function(){
+        // 获取 文本框
+        var fileDom = document.querySelector('.input-name');
+        // 获取value值
+        var saveValue = fileDom.value;
+
+        // 使用 存储 对象
+        // 参数1 键
+        // 参数2 值 
+        // 直接在 浏览器的 application 中 查看
+        // 千万不要保存 私密信息 
+        window.localStorage.setItem('userName',saveValue); 
+        
+    }
+
+    //  用户打开页面的时候    获取 保存的 名字 弹出欢迎信息
+    window.onload = function(){
+        // 获取 保存的值
+        var userName = window.localStorage.getItem('userName');
+        console.log(userName);
+        //   弹框提示
+        alert('讨厌,这么久都不来了'+userName);
+    }
+
+    //  点击删除 保存的 信息
+    document.querySelector('.delete').onclick = function(){
+        //  删除 指定的key 的值 
+        // 根据指定的key 删除 对应的值
+        // window.localStorage.removeItem('userName');
+        // 全部都干掉 
+        window.localStorage.clear();
+    }
+
+    //  有一个 跟 localStorage相似的
+    // 下面的这种保存方式 关闭浏览器 就没有了 保存数据的大小有限制 
+    // window.sessionStorage.setItem();
+    // window.sessionStorage.getItem();
+    // window.sessionStorage.removeItem();
+    // window.sessionStorage.clear(); 
+
+    //  如果想要查看 哪些网站存了东西进来
+    //  目前比较常见是 缓存 js 相对使用频率没有那么频繁的是 缓存 css
+    
+</script>

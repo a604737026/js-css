@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        .box {
+            width: 200px;
+            height: 200px;
+            border: 1px solid #000;
+            margin: 100px auto;
+            position: relative;
+        }
+        
+        .box>div {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            font-size: 100px;
+            font-weight: 900;
+            color: white;
+            text-align: center;
+            line-height: 200px;
+        }
+        
+        .side:nth-child(1) {
+            background: hotpink;
+            /* 旋转 0  向前移动  */
+            transform: rotateY(0) translateZ(100px);
+        }
+        
+        .side:nth-child(2) {
+            background: yellowgreen;
+            transform: rotateY(180deg) translateZ(100px);
+        }
+        
+        .side:nth-child(3) {
+            background: skyblue;
+            transform: rotateY(90deg) translateZ(100px);
+        }
+        
+        .side:nth-child(4) {
+            background: greenyellow;
+            transform: rotateY(-90deg) translateZ(100px);
+        }
+        
+        .side:nth-child(5) {
+            background: purple;
+            transform: rotateX(-90deg) translateZ(100px);
+        }
+        
+        .side:nth-child(6) {
+            background: orange;
+            transform: rotateX(90deg) translateZ(100px);
+        }
+
+        body{
+            /* perspective */
+            perspective: 1000px;
+        }
+        .box{
+            /* 只能设置给父元素 */
+            transform-style: preserve-3d;
+            /* 添加lopacity 3d渲染效果 就看不到了 */
+            /*opacity: .5;*/
+            border:none;
+        }
+        .box>div{
+            opacity: .5;
+        }
+
+        /*  沿着 y轴 一直在旋转 允许 不停止 */
+        /* 定义动画 */
+        @keyframes autoRotate{
+            from{}
+            to{
+                transform: rotateY(360deg);
+            }
+        }
+        /* 定义使用动画的类 */
+        .autoRotate{
+            animation:   autoRotate infinite linear 4s;
+        } 
+
+        /*  鼠标放上去 动画停止播放 */
+        .box:hover{
+            /*animation: none;*/
+            /* 修改 动画播放的状态
+                默认的是 running
+             */
+            animation-play-state: paused;
+        }
+    </style>
+</head> 
+
+<body>
+    <div class="box autoRotate">
+        <div class="side">1</div>
+        <div class="side">2</div>
+        <div class="side">3</div>
+        <div class="side">4</div>
+        <div class="side">5</div>
+        <div class="side">6</div>
+    </div>
+</body>
+
+</html>
